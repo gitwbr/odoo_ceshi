@@ -1,0 +1,15 @@
+{
+    "name": "My Addon",
+    "version": "1.0",
+    "category": "Sales",
+    "summary": "A simple addon for Odoo",
+    "author": "Your Name",
+    "website": "https://www.example.com",
+    "license": "LGPL-3",
+    "depends": ["base"],
+    "data": [],
+    "demo": [],
+    "application": True,
+    "installable": True,
+    "auto_install": False,
+}

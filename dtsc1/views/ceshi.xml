@@ -1,0 +1,45 @@
+<odoo>
+
+    <record id="view_ceshi_tree" model="ir.ui.view">
+        <field name="name">dtsc.ceshi.tree</field>
+        <field name="model">dtsc.ceshi</field>
+        <field name="arch" type="xml">
+            <tree string="测试记录">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+	
+    <record id="view_ceshi_form" model="ir.ui.view">
+        <field name="name">dtsc.ceshi.form</field>
+        <field name="model">dtsc.ceshi</field>
+        <field name="arch" type="xml">
+            <form string="测试页面">
+                <group>
+                    <field name="name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ceshi_search" model="ir.ui.view">
+        <field name="name">dtsc.ceshi.search</field>
+        <field name="model">dtsc.ceshi</field>
+        <field name="arch" type="xml">
+            <search string="搜索测试">
+                <field name="name" string="名称"/>
+            </search>
+        </field>
+    </record>
+    <!-- 动作定义，添加 tree 和 search 模式
+    <record id="dtsc.action_ceshi_page" model="ir.actions.act_window">
+        <field name="name">测试页面</field>
+        <field name="res_model">dtsc.ceshi.model</field>
+        <field name="view_mode">tree,form</field> 
+        <field name="view_id" ref="view_ceshi_tree"/>  
+        <field name="search_view_id" ref="view_ceshi_search"/>
+    </record>
+
+	<menuitem name="测试" id="dtsc.menu_ceshi" action="dtsc.action_ceshi_page" parent="dtsc.menu_root" />
+     -->
+</odoo>

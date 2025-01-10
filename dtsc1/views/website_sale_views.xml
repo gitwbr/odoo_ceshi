@@ -1,0 +1,57 @@
+<odoo>
+    <record id="view_delivery_carrier_form_custom" model="ir.ui.view">
+        <field name="name">delivery.carrier.form.custom</field>
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/> 
+        <field name="arch" type="xml">
+            <!-- 在选择 'custom_rule' 时显示自定义公式和参数字段 -->
+            <xpath expr="//group[@name='provider_details']" position="after">
+                <group string="自定義運費規則" attrs="{'invisible': [('delivery_type', '!=', 'custom_rule')]}">
+                    <field name="custom_formula" placeholder="e.g., param2 * ceil(total_quantity / param1) => ps total_quantity(總數量) ceil(向上取整)" string="公式"/>
+                    <field name="custom_param1" string="參數 1"/>
+                    <field name="custom_param2" string="參數 2"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+	<template id="remove_zip_field" inherit_id="website_sale.address">
+		<!-- <xpath expr="//input[@name='zip']/ancestor::div[1]" position="replace"/> -->
+		
+		<!-- <xpath expr="//input[@name='city']/ancestor::div[1]" position="replace"/> -->
+		<xpath expr="//input[@name='street2']/ancestor::div[1]" position="replace"/>
+		<xpath expr="//input[@name='zip']/ancestor::div[1]" position="replace">
+			<!-- <t t-if="'zip' in checkout and checkout['zip']">
+				<input type="hidden" name="zip" t-att-value="checkout['zip']"/>
+			</t>
+			<t t-else="">
+				<input type="hidden" name="zip" value="000000"/>
+			</t> -->
+		</xpath>
+
+		<xpath expr="//input[@name='city']/ancestor::div[1]" position="replace">
+			<!-- <t t-if="'city' in checkout and checkout['city']">
+				<input type="hidden" name="city" t-att-value="checkout['city']"/>
+			</t>
+			<t t-else="">
+				<input type="hidden" name="city" value="-"/>
+			</t> -->
+		</xpath>
+		
+		<xpath expr="//select[@name='country_id']" position="attributes">
+			<!-- <attribute name="t-att-data-selected">231</attribute> -->
+			<!-- <attribute name="disabled">True</attribute> -->
+		</xpath>
+		<xpath expr="//label[@for='state_id']" position="replace">
+			<label class="col-form-label" for="state_id">城市</label>
+		</xpath>
+
+	
+
+	</template>
+
+
+
+
+
+
+</odoo>

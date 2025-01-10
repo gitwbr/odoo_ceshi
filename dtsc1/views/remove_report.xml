@@ -1,0 +1,12 @@
+﻿<odoo>
+     <!-- <record id="purchase.report_purchase_quotation" model="ir.actions.report">
+            <field name="active" eval="False"/>
+     </record> -->
+     <data noupdate="1">
+        <delete id="purchase.report_purchase_quotation" model="ir.actions.report"/>
+        <!-- <delete id="stock.report_picking" model="ir.actions.report"/> -->
+        <!-- <delete id="stock.report_deliveryslip" model="ir.actions.report"/> -->
+        <!-- <delete id="account.account_invoices" model="ir.actions.report"/> -->
+        <!-- <delete id="account.account_invoices_without_payment" model="ir.actions.report"/> -->
+     </data>
+</odoo>

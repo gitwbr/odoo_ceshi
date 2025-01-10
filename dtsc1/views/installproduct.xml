@@ -1,0 +1,123 @@
+<odoo>
+    <record id="model_dtsc_installproduct" model="ir.model">
+        <field name="name">施工單</field>
+        <field name="model">dtsc.installproduct</field>
+    </record>
+	<record id="view_installproduct_tree" model="ir.ui.view">
+		<field name="name">dtsc.installproduct.tree</field>
+		<field name="model">dtsc.installproduct</field>
+		<field name="arch" type="xml">
+			<tree create="false"  decoration-danger="install_state == 'cancel'">
+                <field name="name" readonly="1"/>
+                <field name="in_date" readonly="1"/>
+                <field name="address" readonly="1"/>
+                <field name="fzyw" readonly="1"/>
+                <field name="install_state" readonly="1"/>
+			</tree>
+		</field>
+	</record>
+	
+	<record id="view_installproduct_form" model="ir.ui.view">
+		<field name="name">dtsc.installproduct.form</field>
+		<field name="model">dtsc.installproduct</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="send_install_list" type="object" class="oe_highlight" string="派單" attrs="{'invisible': [('install_state', 'in', ['cancel','installing','succ'])]}" groups="dtsc.group_dtsc_mg,dtsc.group_dtsc_yw"/>
+					<button name="succ_install_list" type="object" class="oe_highlight" string="完成" attrs="{'invisible': [('install_state', 'in', ['draft','cancel','succ'])]}" groups="dtsc.group_dtsc_mg,dtsc.group_dtsc_yw"/>
+					<button name="back_install_list" type="object" class="oe_highlight" string="返回" attrs="{'invisible': [('install_state', 'in', ['draft','cancel'])]}" groups="dtsc.group_dtsc_mg,dtsc.group_dtsc_yw"/>
+					<button name="del_install_list" type="object" class="oe_highlight" string="作廢" attrs="{'invisible': [('install_state', 'in', ['cancel'])]}" groups="dtsc.group_dtsc_mg,dtsc.group_dtsc_yw"/>
+					<button name="send_google" type="object" class="oe_highlight" string="谷歌行事曆" groups="dtsc.group_dtsc_mg,dtsc.group_dtsc_yw"/>
+					<field name="install_state" widget="statusbar" statusbar_visible="draft,installing,succ,cancel"/>
+				</header>
+				<sheet>
+					<div class="oe_title">
+						<h2>施工單</h2>
+					</div>
+					<group col="6">
+						<group colspan="4">
+							<field name="company_id" readonly="1" class="oe_inline" style="font-size:22px"/>
+						</group>
+						<group colspan="2">
+							<field name="name" readonly="1" style="font-size:18px"/>
+						</group>
+					</group>
+					<div style="width:100%; border-top:1px solid black; margin-top:5px; margin-bottom:5px;"></div>
+					<group col="6">
+						<group colspan="2">
+							<field name="xcllr"/>
+							<field name="xcllr_phone"/>
+							<field name="address"/>
+						</group>
+						<group colspan="2">
+							<field name="cbsllr"/>
+							<field name="cbsllr_phone"/>
+							<field name="fzyw"/>
+						</group>
+						<group colspan="2">
+							<field name="in_date"/>
+							<field name="out_date"/>
+							<field name="email_id"/>
+						</group>	
+						<group colspan="6">
+								<field name="google_comment"/>
+						</group>						
+					</group>
+					<notebook>
+						<page string="施工清單">
+							<div id="qr-reader" style="width: 300px; height: 300px;display: none;"></div>
+							<button id="scan_qr_button" name="scan_qr_button" string="扫码"  type="object" class="btn-primary" />
+							<button id="close_qr_button" name="close_qr_button" string="结束扫码"  type="object" class="btn-primary" />
+							<field name="install_product_ids">
+								<tree  create="false" delete="false">
+                                    <field name="sequence" readonly="1"/>
+									<field name="name" readonly="1"/>
+									<field name="size" readonly="1"/>
+									<field name="caizhi" readonly="1"/>
+									<field name="caishu" readonly="1" sum="Total"/>
+									<field name="shuliang" readonly="1"/>
+									<field name="gongdan"/>
+								</tree>
+							</field>
+							
+							<group col="6">
+								<group colspan="3">
+									<field name="comment" readonly="1"/>
+									<field name="fzyw"/>
+									<field name="total_quantity" readonly="1"/>
+									<field name="zcs" readonly="1"/>
+									<!-- <field name="image" widget="image" style="width:100px;"/> -->
+									<!-- <button name="upload_image" string="上傳圖片" type="object" class="btn-primary" /> -->
+									<!-- <field name="image_urls" invisible="1"/> -->
+									<!-- <field name="image_urls"/> -->
+								</group>
+								<group>
+									
+									<field name="signature" widget="signature" readonly="context.get('readonly', False)" />
+									
+									
+								</group>
+							</group>
+						</page>
+					</notebook>
+					<group>
+						<field name="image_ids">
+								<tree>
+									<field name="image"  widget="image" class="my_custom_tree_image" style="width:100px;"/>
+								</tree>
+							</field>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+     <record id="action_report_install" model="ir.actions.report">
+        <field name="name">施工單</field>
+        <field name="model">dtsc.installproduct</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">dtsc.report_install_template</field>
+        <field name="report_file">dtsc.report_install_template</field>
+        <field name="binding_model_id" ref="model_dtsc_installproduct"/>
+        <field name="binding_type">report</field> 
+    </record>
+</odoo>

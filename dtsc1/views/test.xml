@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <!-- The action to open the test page -->
+        <record id="window_test" model="ir.actions.client">
+            <field name="name">测试页面</field>
+            <field name="tag">test_action</field>
+        </record>
+    </data>
+</odoo>

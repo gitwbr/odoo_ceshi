@@ -1,0 +1,18 @@
+.text-truncate{
+	overflow:initial;
+	text-overflow:initial;	
+}
+
+.my_custom_class table {
+    /* 您的自定义表格样式 */
+    table-layout: auto !important;
+    /* 其他样式 */
+}
+
+.my_custom_tree_image img {
+    max-width: 100px; /* 或者其他您想要的尺寸 */
+    height: auto; /* 保持图片的宽高比 */
+}
+.o_FormRenderer_chatterContainer{
+	display:none;
+}

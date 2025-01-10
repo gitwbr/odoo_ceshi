@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <!-- 可选：如果需要删除旧的仪表盘记录 -->
+    <delete model="spreadsheet.dashboard" id="spreadsheet_dashboard_sale.spreadsheet_dashboard_sales"/>
+    <!-- <delete model="spreadsheet.dashboard" id="原模块名.spreadsheet_dashboard_product"/> -->
+    
+    <!-- 定义新的仪表盘记录 -->
+    <record id="dtsc.my_spreadsheet_dashboard_custom" model="spreadsheet.dashboard">
+        <field name="name">My Custom Dashboard</field>
+        <field name="data" type="base64" file="dtsc/data/files/dtsc_sales_dashboard.json"/>
+        <field name="dashboard_group_id" ref="spreadsheet_dashboard.spreadsheet_dashboard_group_sales"/>
+        <field name="group_ids" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+        <field name="sequence">10</field> 
+    </record>
+</odoo> 
