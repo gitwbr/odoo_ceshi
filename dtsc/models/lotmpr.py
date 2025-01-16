@@ -9,7 +9,8 @@ from odoo.exceptions import UserError
 from dateutil.relativedelta import relativedelta
 import math
 from odoo.exceptions import UserError
-
+import pytz
+from pytz import timezone
 class LotMprScancode(models.Model):
     _name = "dtsc.lotmprscancode"
     
@@ -30,9 +31,9 @@ class LotMprScancode(models.Model):
         self.barcode_input = ""
     def open_form_view(self):
         parts = self.barcode_input.split('-')
-        print(parts)
+        # print(parts)
         if len(parts) > 2 and len(parts) < 4:
-            print(self.barcode_input)
+            # print(self.barcode_input)
             stock_lot_obj = self.env['stock.lot'].search([('barcode', '=', self.barcode_input)],limit=1)
             if stock_lot_obj:
                 lotmprobj = self.env['dtsc.lotmpr'].search([('name', '=', self.barcode_input)],limit=1)
@@ -45,6 +46,13 @@ class LotMprScancode(models.Model):
                        'name' : self.barcode_input, 
                        'product_id' : stock_lot_obj.product_id.id,
                        'product_lot' : stock_lot_obj.id,
+                    })
+                    
+                    self.env['dtsc.lotmprline'].create({
+                       'name' : "邊料損耗", 
+                       'yujixiaohao' : 25,
+                       'sjkl' : 25,
+                       "lotmpr_id" : obj.id,
                     })
                     formid = obj.id
                 self.barcode_input = ""
@@ -101,6 +109,49 @@ class LotMpr(models.Model):
     stock_move_line_id = fields.Many2many("stock.move.line")
     last_cai = fields.Char("剩餘才數",compute="_compute_last_cai")
     stock_location_id = fields.Many2one("stock.location", string="倉庫位置",compute="_compute_last_cai")
+    succ_date = fields.Date(string='完成時間')    
+    report_year = fields.Many2one("dtsc.year",string="年",compute="_compute_year_month",store=True)
+    report_month = fields.Many2one("dtsc.month",string="月",compute="_compute_year_month",store=True) 
+    
+    
+    @api.depends("succ_date")
+    def _compute_year_month(self):
+        invoice_due_date = self.env['ir.config_parameter'].sudo().get_param('dtsc.invoice_due_date')
+        for record in self:
+            if record.succ_date:
+                current_date = record.succ_date           
+                if current_date.day > int(invoice_due_date):
+                    if current_date.month == 12:
+                        next_date = current_date.replace(year=current_date.year + 1, month=1 ,day=1)
+                    else:
+                        next_date = current_date.replace(month=current_date.month + 1,day=1)
+                else:
+                    next_date = current_date
+                    
+                next_year_str = next_date.strftime('%Y')  # 两位数的年份
+                next_month_str = next_date.strftime('%m')  # 月份
+                
+                year_record = self.env['dtsc.year'].search([('name', '=', next_year_str)], limit=1)
+                month_record = self.env['dtsc.month'].search([('name', '=', next_month_str)], limit=1)
+
+                record.report_year = year_record.id if year_record else False
+                record.report_month = month_record.id if month_record else False
+            else:
+                record.report_year = False
+                record.report_month = False
+                
+    @api.depends()
+    def asyn_date(self):
+        active_ids = self._context.get('active_ids')
+        records = self.env["dtsc.lotmpr"].browse(active_ids)
+        
+        for record in records:
+            print(record.state)
+            if record.state == 'succ':
+                record.succ_date = record.write_date.date()
+            else:
+                record.succ_date = False
+                
     # stock_location_id_backup = fields.Many2one("stock.location", string="备选料倉庫位置",compute="_compute_stock_location_id_backup")
     
     # @api.depends('barcode_backup')
@@ -222,6 +273,13 @@ class LotMpr(models.Model):
         picking.action_assign()
         picking.button_validate() 
         self.write({'state': "succ"})
+        local_tz = pytz.timezone('Asia/Shanghai')  # 替換為你所在的時區
+        
+        today = datetime.now(local_tz).date()
+        self.succ_date = today
+        
+        
+        
         # quant = self.env["stock.quant"].search([('product_id' , "=" , self.product_id.id),("lot_id" ,"=" , self.product_lot.id),("location_id" ,"=" ,self.stock_location_id.id)],limit=1) #這裡出現的負數我用company_id隱藏，未來要修正
         
         
@@ -303,9 +361,7 @@ class LotMpr(models.Model):
             if int(self.lot_stock_num) < 0:
                 raise ValidationError("此料無庫存!")
         elif self.lot_stock_num == "無":  # 检查是否为字符串 "無"
-            raise ValidationError("此料無庫存!") 
-        # print(other_uom.factor)
-        # print(self.lot_stock_num)
+            raise ValidationError("此料無庫存!")
         
         now_stock_p = float(self.lot_stock_num) * other_uom.factor
         for record in self.lotmprline_id:
@@ -482,7 +538,7 @@ class LotMprLine(models.Model):
                     # print(line.id)  
                     # 处理序列号
                     for move_line in move.move_line_ids:
-                        print("========================")
+                        # print("========================")
                         if move_line.lot_id:
                             # print(move_line.product_id.name)
                             # print(move_line.lot_id.name)
@@ -542,7 +598,7 @@ class LotMprLine(models.Model):
                 # print(line.id)  
                 # 处理序列号
                 for move_line in move.move_line_ids:
-                    print("========================")
+                    # print("========================")
                     if move_line.lot_id:
                         # print(move_line.product_id.name)
                         # print(move_line.lot_id.name)
@@ -593,32 +649,37 @@ class LotMprLine(models.Model):
     @api.depends("name")
     def _compute_sccz(self):
         for record in self:
-            if record.name:                
-                parts = record.name.split('-')
-                if len(parts) > 1:
-                    makein_obj = self.env["dtsc.makein"].search([('name','=',parts[0])],limit=1)
-                    if makein_obj:
-                        obj = self.env["dtsc.makeinline"].search([('make_order_id','=',makein_obj.id),("sequence","=",int(parts[1]))],limit=1)
-                        
-                        if obj:
-                            record.sccz = obj.output_material
-                            record.outman = obj.outman.id
-                            if record.is_other_stock and record.other_qty_done:
-                                record.yujixiaohao = record.other_qty_done
+            if record.name: 
+                if record.name == "邊料損耗":
+                    record.sccz = ""
+                    record.outman = False
+                    record.yujixiaohao = 25
+                else:
+                    parts = record.name.split('-')
+                    if len(parts) > 1:
+                        makein_obj = self.env["dtsc.makein"].search([('name','=',parts[0])],limit=1)
+                        if makein_obj:
+                            obj = self.env["dtsc.makeinline"].search([('make_order_id','=',makein_obj.id),("sequence","=",int(parts[1]))],limit=1)
+                            
+                            if obj:
+                                record.sccz = obj.output_material
+                                record.outman = obj.outman.id
+                                if record.is_other_stock and record.other_qty_done:
+                                    record.yujixiaohao = record.other_qty_done
+                                else:
+                                    record.yujixiaohao = obj.total_size
                             else:
-                                record.yujixiaohao = obj.total_size
+                                record.sccz = ""
+                                record.outman = False
+                                record.yujixiaohao = False
                         else:
-                            record.sccz = ""
+                            record.sccz = "沒有此工單號" + parts[0]
                             record.outman = False
                             record.yujixiaohao = False
                     else:
-                        record.sccz = "沒有此工單號" + parts[0]
+                        record.sccz = ""
                         record.outman = False
                         record.yujixiaohao = False
-                else:
-                    record.sccz = ""
-                    record.outman = False
-                    record.yujixiaohao = False
             else:
                     record.sccz = ""
                     record.outman = False
