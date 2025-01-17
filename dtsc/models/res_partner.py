@@ -47,11 +47,13 @@ class BaseImport(models.TransientModel):
         return super(BaseImport, self).execute_import(fields, columns, options, dryrun)
 
 
+
 class ResPartner(models.Model):
     _inherit = "res.partner"
     
     is_company = fields.Boolean(string='Is a Company', default=True,
         help="Check if the contact is a company, otherwise it is a person")
+    quotation_count = fields.Integer(string='報價', compute='_compute_quotation_count')
     custom_init_name = fields.Char("簡稱")
     
     custom_id = fields.Char("編號")
@@ -93,8 +95,8 @@ class ResPartner(models.Model):
         ('4', '其他'),
     ], string='付款方式' ,default="1") 
     
-    nop = fields.Boolean(string="下單界面中不呈現估價",default=False)
-    
+    nop = fields.Boolean(string="下單界面中不呈現估價",default=False) 
+
     custom_search_email = fields.Boolean("郵寄查詢")
     custom_contact_person = fields.Char("聯絡人")
     property_payment_term_id = fields.Many2one("account.payment.term" , string='客戶付款條款')
@@ -129,8 +131,7 @@ class ResPartner(models.Model):
     is_in_by_gly = fields.Boolean(compute='_compute_is_in_by_gly', default=True)
     is_in_by_yw = fields.Boolean(compute='_compute_is_in_by_yw', default=True)
     meeting_count = fields.Integer(store=False,default=0)
-    
-
+ 
     # @api.model
     # def export_data(self, fields_to_export):
         # # 从上下文获取排序字段
@@ -297,7 +298,17 @@ class ResPartner(models.Model):
             else:                    
                 return super(ResPartner, self).create(vals)
         
+    def recomputer(self):
         
+        active_ids = self._context.get('active_ids')
+        records = self.env['res.partner'].browse(active_ids)
+        
+        for record in records:
+            print(record.custom_id)
+            if record.custom_id:
+                record.display_name = f"{record.name} ({record.custom_id})"
+            else:
+                record.display_name = record.name
         
 
     @api.depends('name', 'custom_id')
@@ -316,3 +327,10 @@ class ResPartner(models.Model):
                 name = f"{name} ({record.custom_id})"
             result.append((record.id, name))
         return result
+
+    @api.depends('supplier_rank')
+    def _compute_quotation_count(self):
+        for partner in self:
+            partner.quotation_count = self.env['product.supplierinfo'].search_count([
+                ('partner_id', '=', partner.id)
+            ])
