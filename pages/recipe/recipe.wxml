@@ -1,0 +1,117 @@
+<view class="page">
+  <!-- 菜谱头部 -->
+  <view class="recipe-header">
+    <view class="recipe-title">{{recipe.name}}</view>
+    <view class="recipe-desc">{{recipe.description}}</view>
+    <view class="recipe-tags">
+      <view class="tag" wx:for="{{recipe.tags}}" wx:key="index">{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 收藏按钮 -->
+  <view class="favorite-btn" bindtap="toggleFavorite">
+    <image 
+      class="favorite-icon" 
+      src="{{isFavorite ? '/images/heart-filled.png' : '/images/heart.png'}}"
+    ></image>
+  </view>
+
+  <!-- 营养信息 -->
+  <view class="card">
+    <view class="card-title">营养信息</view>
+    <view class="nutrition-grid">
+      <view class="nutrition-item">
+        <view class="nutrition-value">{{recipe.nutrition.calories}}</view>
+        <view class="nutrition-label">热量(千卡)</view>
+      </view>
+      <view class="nutrition-item">
+        <view class="nutrition-value">{{recipe.nutrition.protein}}</view>
+        <view class="nutrition-label">蛋白质(g)</view>
+      </view>
+      <view class="nutrition-item">
+        <view class="nutrition-value">{{recipe.nutrition.fat}}</view>
+        <view class="nutrition-label">脂肪(g)</view>
+      </view>
+      <view class="nutrition-item">
+        <view class="nutrition-value">{{recipe.nutrition.carbs}}</view>
+        <view class="nutrition-label">碳水化合物(g)</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 食材清单 -->
+  <view class="card">
+    <view class="card-title">食材清单（可修改用量）</view>
+    <view class="ingredients-list">
+      <view 
+        wx:for="{{recipe.ingredients}}" 
+        wx:key="index"
+        class="ingredient-item-card"
+      >
+        <view class="ingredient-main">
+          <view class="ingredient-name">{{item.name}}</view>
+          <view class="ingredient-input-group">
+            <block wx:if="{{item.hasNumericAmount}}">
+              <input 
+                type="number" 
+                value="{{item.weight}}"
+                data-index="{{index}}"
+                bindinput="updateIngredientWeight"
+                class="weight-input"
+              />
+              <text class="unit-text">{{item.unit}}</text>
+            </block>
+            <block wx:else>
+              <view class="amount-text">{{item.amount}}</view>
+            </block>
+          </view>
+        </view>
+        <view class="ingredient-nutrition-grid" wx:if="{{item.hasNumericAmount}}">
+          <view class="nutrition-cell">
+            <view class="nutrition-value-small">{{item.nutritionInfo.calories}}</view>
+            <view class="nutrition-label-small">热量(千卡)</view>
+          </view>
+          <view class="nutrition-cell">
+            <view class="nutrition-value-small">{{item.nutritionInfo.protein}}</view>
+            <view class="nutrition-label-small">蛋白质(g)</view>
+          </view>
+          <view class="nutrition-cell">
+            <view class="nutrition-value-small">{{item.nutritionInfo.fat}}</view>
+            <view class="nutrition-label-small">脂肪(g)</view>
+          </view>
+          <view class="nutrition-cell">
+            <view class="nutrition-value-small">{{item.nutritionInfo.carbohydrates || item.nutritionInfo.carbs}}</view>
+            <view class="nutrition-label-small">碳水(g)</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 制作步骤 -->
+  <view class="card">
+    <view class="card-title">制作步骤</view>
+    <view class="steps-list">
+      <view 
+        wx:for="{{recipe.steps}}" 
+        wx:key="index"
+        class="step-item"
+      >
+        <view class="step-number">{{index + 1}}</view>
+        <view class="step-content">{{item}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 烹饪技巧 -->
+  <view class="card" wx:if="{{recipe.tips}}">
+    <view class="card-title">烹饪技巧</view>
+    <view class="tips-content">{{recipe.tips}}</view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="btn-primary" bindtap="shareRecipe">分享菜谱</button>
+    <button class="btn-secondary" bindtap="saveToServer">保存到云端</button>
+  </view>
+</view> 

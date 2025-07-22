@@ -1,0 +1,129 @@
+<view class="page">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">个人中心</view>
+    <view class="page-subtitle">配置和管理您的菜谱助手</view>
+  </view>
+
+  <!-- API配置 -->
+  <view class="card">
+    <view class="card-title">API配置</view>
+    <view class="card-content">
+      <view class="api-status">
+        <view class="status-item">
+          <text class="status-label">API状态：</text>
+          <text class="status-value {{apiStatus ? 'success' : 'error'}}">
+            {{apiStatus ? '已配置' : '未配置'}}
+          </text>
+        </view>
+      </view>
+      
+      <view class="api-info">
+        <view class="info-text">
+          🔑 API密钥已在配置文件中设置
+        </view>
+        <view class="info-text">
+          如需修改，请编辑 app.js 文件中的 openaiApiKey
+        </view>
+      </view>
+      
+      <button class="btn-primary" bindtap="testApiKey">
+        测试API连接
+      </button>
+    </view>
+  </view>
+
+  <!-- 数据管理 -->
+  <view class="card">
+    <view class="card-title">数据管理</view>
+    <view class="card-content">
+      <view class="data-item">
+        <view class="data-info">
+          <view class="data-label">收藏菜谱</view>
+          <view class="data-value">{{favoritesCount}}个</view>
+        </view>
+        <button class="btn-secondary" bindtap="clearFavorites">清空收藏</button>
+      </view>
+      
+      <view class="data-item">
+        <view class="data-info">
+          <view class="data-label">历史记录</view>
+          <view class="data-value">{{historyCount}}个</view>
+        </view>
+        <button class="btn-secondary" bindtap="clearHistory">清空历史</button>
+      </view>
+      
+      <view class="data-item">
+        <view class="data-info">
+          <view class="data-label">本地存储</view>
+          <view class="data-value">{{storageSize}}KB</view>
+        </view>
+        <button class="btn-secondary" bindtap="clearAllData">清空所有</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 应用信息 -->
+  <view class="card">
+    <view class="card-title">应用信息</view>
+    <view class="card-content">
+      <view class="info-item">
+        <text class="info-label">版本号：</text>
+        <text class="info-value">1.0.0</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">开发者：</text>
+        <text class="info-value">AI菜谱助手</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">更新时间：</text>
+        <text class="info-value">2024年1月</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 使用说明 -->
+  <view class="card">
+    <view class="card-title">使用说明</view>
+    <view class="card-content">
+      <view class="instruction-item">
+        <view class="instruction-title">1. 配置API密钥</view>
+        <view class="instruction-desc">
+          首先需要在OpenAI官网注册账号并获取API密钥，然后在上面输入框中配置。
+        </view>
+      </view>
+      
+      <view class="instruction-item">
+        <view class="instruction-title">2. 生成菜谱</view>
+        <view class="instruction-desc">
+          可以选择随机生成、选择食材生成或选择菜系生成菜谱。
+        </view>
+      </view>
+      
+      <view class="instruction-item">
+        <view class="instruction-title">3. 收藏管理</view>
+        <view class="instruction-desc">
+          喜欢的菜谱可以收藏，方便以后查看和使用。
+        </view>
+      </view>
+      
+      <view class="instruction-item">
+        <view class="instruction-title">4. 营养计算</view>
+        <view class="instruction-desc">
+          可以调整食材重量，系统会自动重新计算营养成分。
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 关于我们 -->
+  <view class="card">
+    <view class="card-title">关于我们</view>
+    <view class="card-content">
+      <view class="about-text">
+        AI菜谱助手是一款基于人工智能的菜谱生成工具，帮助您轻松制作美味佳肴。
+      </view>
+      <button class="btn-secondary" bindtap="contactUs">联系我们</button>
+    </view>
+  </view>
+</view> 

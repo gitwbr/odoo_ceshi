@@ -1,0 +1,163 @@
+/* 收藏页面样式 */
+.page-header {
+  text-align: center;
+  padding: 40rpx 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  margin-bottom: 30rpx;
+}
+
+.page-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.page-subtitle {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+/* 收藏列表样式 */
+.favorites-list {
+  padding: 0 20rpx;
+}
+
+.favorite-item {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.favorite-item:active {
+  transform: scale(0.98);
+}
+
+.recipe-info {
+  flex: 1;
+}
+
+.recipe-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.recipe-desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 15rpx;
+}
+
+.recipe-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.nutrition-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5rpx;
+}
+
+.nutrition-item {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.recipe-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.recipe-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15rpx;
+}
+
+.action-btn {
+  width: 60rpx;
+  height: 60rpx;
+  background: #f8f9fa;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.action-btn:active {
+  background: #e9ecef;
+  transform: scale(0.9);
+}
+
+.action-icon {
+  font-size: 28rpx;
+}
+
+.recipe-arrow {
+  font-size: 32rpx;
+  color: #999;
+}
+
+/* 空状态样式 */
+.empty-state {
+  text-align: center;
+  padding: 100rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+}
+
+.empty-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.empty-desc {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 40rpx;
+}
+
+/* 批量操作样式 */
+.batch-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 30rpx 20rpx;
+  background: #fff;
+  margin-top: 20rpx;
+}
+
+.batch-actions button {
+  flex: 1;
+}
+
+/* 响应式设计 */
+@media (max-width: 750rpx) {
+  .recipe-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10rpx;
+  }
+  
+  .batch-actions {
+    flex-direction: column;
+  }
+} 

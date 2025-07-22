@@ -1,0 +1,237 @@
+/* 菜谱详情页样式 */
+.recipe-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 40rpx 30rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+
+.recipe-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+}
+
+.recipe-desc {
+  font-size: 28rpx;
+  opacity: 0.9;
+  line-height: 1.5;
+  margin-bottom: 20rpx;
+}
+
+.recipe-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.recipe-tags .tag {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1rpx solid rgba(255, 255, 255, 0.3);
+}
+
+/* 食材列表样式 */
+.ingredients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.ingredient-item-card {
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  border: 1rpx solid #eee;
+}
+
+.ingredient-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.ingredient-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+.ingredient-input-group {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1rpx solid #ddd;
+  border-radius: 12rpx;
+  padding: 8rpx 16rpx;
+}
+
+.weight-input {
+  width: 100rpx;
+  text-align: right;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.unit-text {
+  font-size: 26rpx;
+  color: #666;
+  margin-left: 10rpx;
+}
+
+.amount-text {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #888;
+  padding: 0 10rpx;
+}
+
+.ingredient-nutrition-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.nutrition-cell {
+  text-align: center;
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 10rpx;
+}
+
+.nutrition-value-small {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #555;
+}
+
+.nutrition-label-small {
+  font-size: 22rpx;
+  color: #888;
+  margin-top: 4rpx;
+}
+
+/* 重量调整样式 */
+.weight-adjustment {
+  margin-top: 30rpx;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+}
+
+.adjustment-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.adjustment-list {
+  margin-bottom: 20rpx;
+}
+
+.adjustment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.adjustment-item:last-child {
+  border-bottom: none;
+}
+
+.adjustment-name {
+  font-size: 26rpx;
+  color: #333;
+  flex: 1;
+}
+
+.adjustment-input {
+  width: 120rpx;
+}
+
+.adjustment-input input {
+  width: 100%;
+  padding: 10rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 6rpx;
+  font-size: 24rpx;
+  text-align: center;
+}
+
+/* 步骤列表样式 */
+.steps-list {
+  margin-top: 20rpx;
+}
+
+.step-item {
+  display: flex;
+  margin-bottom: 30rpx;
+  align-items: flex-start;
+}
+
+.step-number {
+  width: 60rpx;
+  height: 60rpx;
+  background: #667eea;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* 烹饪技巧样式 */
+.tips-content {
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: #333;
+  padding: 20rpx 0;
+}
+
+/* 操作按钮样式 */
+.action-buttons {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 40rpx;
+  padding: 0 20rpx;
+}
+
+.action-buttons button {
+  flex: 1;
+}
+
+/* 响应式设计 */
+@media (max-width: 750rpx) {
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .adjustment-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10rpx;
+  }
+  
+  .adjustment-input {
+    width: 100%;
+  }
+} 

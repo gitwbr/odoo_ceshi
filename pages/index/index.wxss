@@ -1,0 +1,376 @@
+/* 首页样式 */
+.header {
+  text-align: center;
+  padding: 40rpx 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  margin-bottom: 30rpx;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+/* 快速选项样式 */
+.quick-options {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20rpx;
+}
+
+.quick-option {
+  text-align: center;
+  padding: 30rpx 20rpx;
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  flex: 1;
+  margin: 0 10rpx;
+  transition: all 0.3s ease;
+}
+
+.quick-option:active {
+  transform: scale(0.95);
+  background: #e9ecef;
+}
+
+.option-icon {
+  font-size: 60rpx;
+  margin-bottom: 10rpx;
+}
+
+.option-text {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 卡片标题样式 */
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+  padding-bottom: 15rpx;
+}
+
+/* 食材选择器样式 */
+.ingredient-categories {
+  margin-bottom: 30rpx;
+}
+
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.category-tab {
+  padding: 12rpx 24rpx;
+  background: #f0f0f0;
+  border-radius: 25rpx;
+  font-size: 26rpx;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.category-tab.active {
+  background: #667eea;
+  color: #fff;
+}
+
+.ingredient-list {
+  max-height: 600rpx;
+  overflow-y: auto;
+}
+
+.ingredient-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.ingredient-item.selected {
+  background: #e8f4fd;
+  border-left: 4rpx solid #667eea;
+}
+
+.ingredient-info {
+  flex: 1;
+}
+
+.ingredient-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.ingredient-category {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 5rpx;
+}
+
+.ingredient-weight {
+  width: 150rpx;
+}
+
+.weight-input {
+  width: 100%;
+  padding: 10rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 6rpx;
+  font-size: 26rpx;
+  text-align: center;
+}
+
+.selected-ingredients {
+  margin-top: 30rpx;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+}
+
+.selected-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.selected-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.selected-item {
+  padding: 8rpx 16rpx;
+  background: #667eea;
+  color: #fff;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+
+/* 菜系选择器样式 */
+.cuisine-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.cuisine-item {
+  padding: 30rpx 20rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2rpx solid transparent;
+}
+
+.cuisine-item.active {
+  background: #e8f4fd;
+  border-color: #667eea;
+}
+
+.cuisine-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.cuisine-desc {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* 最近菜谱样式 */
+.recipe-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.recipe-item:last-child {
+  border-bottom: none;
+}
+
+.recipe-item:active {
+  background: #f8f9fa;
+}
+
+.recipe-info {
+  flex: 1;
+}
+
+.recipe-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.recipe-desc {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+  line-height: 1.4;
+}
+
+.recipe-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.recipe-arrow {
+  font-size: 32rpx;
+  color: #999;
+  margin-left: 20rpx;
+}
+
+/* 加载状态样式 */
+.loading-text {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 响应式设计 */
+@media (max-width: 750rpx) {
+  .quick-options {
+    flex-direction: column;
+    gap: 20rpx;
+  }
+  
+  .quick-option {
+    margin: 0;
+  }
+  
+  .cuisine-grid {
+    grid-template-columns: 1fr;
+  }
+} 
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  background: #fff;
+  border-radius: 30rpx;
+  margin: 30rpx 30rpx 0 30rpx;
+  box-shadow: 0 4rpx 16rpx rgba(102,126,234,0.08);
+  overflow: hidden;
+}
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 30rpx;
+  color: #888;
+  background: #f5f6fa;
+  transition: all 0.2s;
+}
+.tab-item.active {
+  color: #fff;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  font-weight: bold;
+  box-shadow: 0 4rpx 16rpx rgba(102,126,234,0.12);
+}
+
+.card {
+  margin: 30rpx 30rpx 0 30rpx;
+  border-radius: 30rpx;
+  background: #fff;
+  box-shadow: 0 8rpx 32rpx rgba(102,126,234,0.10);
+  padding: 40rpx 30rpx 30rpx 30rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 20rpx;
+}
+
+.multi-select-list, .single-select-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin: 10rpx 0 20rpx 0;
+}
+.multi-select-item, .single-select-item {
+  padding: 16rpx 32rpx;
+  background: #f0f0f0;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+  border: 2rpx solid transparent;
+  transition: all 0.2s;
+}
+.multi-select-item.selected {
+  background: #667eea;
+  color: #fff;
+  border-color: #764ba2;
+  font-weight: bold;
+}
+.single-select-item.selected {
+  background: #764ba2;
+  color: #fff;
+  border-color: #667eea;
+  font-weight: bold;
+}
+
+.generate-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 40rpx 0 0 0;
+}
+.btn-primary.big {
+  font-size: 34rpx;
+  padding: 24rpx 0;
+  width: 80vw;
+  border-radius: 40rpx;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 8rpx 24rpx rgba(102,126,234,0.12);
+} 
+
+.unit-text {
+  font-size: 26rpx;
+  color: #666;
+  margin-left: 10rpx;
+}
+
+.category-title {
+  font-size: 28rpx;
+  color: #888;
+  margin-top: 30rpx;
+  margin-bottom: 20rpx;
+  padding-left: 10rpx;
+  border-left: 6rpx solid #667eea;
+}
+
+.amount-text {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #888;
+  padding: 0 10rpx;
+} 

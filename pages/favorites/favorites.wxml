@@ -1,0 +1,55 @@
+<view class="page">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">我的收藏</view>
+    <view class="page-subtitle">收藏的菜谱都在这里</view>
+  </view>
+
+  <!-- 收藏列表 -->
+  <view class="favorites-list" wx:if="{{favorites.length > 0}}">
+    <view 
+      wx:for="{{favorites}}" 
+      wx:key="id"
+      class="favorite-item"
+      bindtap="viewRecipe"
+      data-recipe="{{item}}"
+    >
+      <view class="recipe-info">
+        <view class="recipe-name">{{item.name}}</view>
+        <view class="recipe-desc">{{item.description}}</view>
+        <view class="recipe-meta">
+          <view class="nutrition-info">
+            <text class="nutrition-item">热量: {{item.nutrition.calories}}千卡</text>
+            <text class="nutrition-item">蛋白质: {{item.nutrition.protein}}g</text>
+          </view>
+          <view class="recipe-tags">
+            <view class="tag" wx:for="{{item.tags}}" wx:key="tagIndex">{{item}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="recipe-actions">
+        <view class="action-btn" bindtap="removeFavorite" data-id="{{item.id}}" catchtap="true">
+          <text class="action-icon">🗑️</text>
+        </view>
+        <view class="recipe-arrow">></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{favorites.length === 0}}">
+    <view class="empty-icon">❤️</view>
+    <view class="empty-title">还没有收藏的菜谱</view>
+    <view class="empty-desc">去首页生成一些美味的菜谱吧</view>
+    <button class="btn-primary" bindtap="goToHome">去生成菜谱</button>
+  </view>
+
+  <!-- 批量操作 -->
+  <view class="batch-actions" wx:if="{{favorites.length > 0}}">
+    <button class="btn-secondary" bindtap="selectAll">全选</button>
+    <button class="btn-secondary" bindtap="clearSelection">取消全选</button>
+    <button class="btn-primary" bindtap="deleteSelected" wx:if="{{selectedItems.length > 0}}">
+      删除选中({{selectedItems.length}})
+    </button>
+  </view>
+</view> 

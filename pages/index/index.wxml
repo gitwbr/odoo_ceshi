@@ -1,0 +1,127 @@
+<view class="page">
+  <!-- 头部标题 -->
+  <view class="header">
+    <view class="title">AI菜谱助手</view>
+    <view class="subtitle">让AI为您生成美味菜谱</view>
+  </view>
+
+  <!-- 顶部标签页 -->
+  <view class="tabs">
+    <view class="tab-item {{activeTab === 0 ? 'active' : ''}}" bindtap="onTabChange" data-index="0">食材</view>
+    <view class="tab-item {{activeTab === 1 ? 'active' : ''}}" bindtap="onTabChange" data-index="1">菜品类型</view>
+    <view class="tab-item {{activeTab === 2 ? 'active' : ''}}" bindtap="onTabChange" data-index="2">菜系风格</view>
+    <view class="tab-item {{activeTab === 3 ? 'active' : ''}}" bindtap="onTabChange" data-index="3">烹饪方式</view>
+  </view>
+
+  <!-- 选择区域卡片 -->
+  <view class="card">
+    <view class="card-content">
+      <!-- 食材多选 -->
+      <view wx:if="{{activeTab === 0}}">
+        <view class="form-label">选择食材（可任意多选）</view>
+        <view 
+          wx:for="{{categorizedIngredients}}" 
+          wx:for-item="category" 
+          wx:for-index="categoryIndex" 
+          wx:key="categoryName"
+          class="category-group"
+        >
+          <view class="category-title">{{category.categoryName}}</view>
+          <view class="multi-select-list">
+            <view
+              wx:for="{{category.ingredients}}"
+              wx:for-item="ingredient"
+              wx:for-index="ingredientIndex"
+              wx:key="name"
+              class="multi-select-item {{ingredient.selected ? 'selected' : ''}}"
+              bindtap="onIngredientTagTap"
+              data-category-index="{{categoryIndex}}"
+              data-ingredient-index="{{ingredientIndex}}"
+            >
+              {{ingredient.name}}
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 新增：大类单选 -->
+      <view wx:if="{{activeTab === 1}}">
+        <view class="form-label">选择大类（可不选）</view>
+        <view class="single-select-list">
+          <view
+            wx:for="{{dishTypeNames}}"
+            wx:key="index"
+            class="single-select-item {{selectedDishTypeIndex === index ? 'selected' : ''}}"
+            bindtap="onDishTypeTagTap"
+            data-index="{{index}}"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+      <!-- 菜系/种类单选 -->
+      <view wx:if="{{activeTab === 2}}">
+        <view class="form-label">选择菜系（可不选，默认为家常菜）</view>
+        <view class="single-select-list">
+          <view
+            wx:for="{{typeNames}}"
+            wx:key="index"
+            class="single-select-item {{selectedTypeIndex === index ? 'selected' : ''}}"
+            bindtap="onTypeTagTap"
+            data-index="{{index}}"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+      <!-- 烹饪方式单选 -->
+      <view wx:if="{{activeTab === 3}}">
+        <view class="form-label">选择烹饪方式（可不选）</view>
+        <view class="single-select-list">
+          <view
+            wx:for="{{methodNames}}"
+            wx:key="index"
+            class="single-select-item {{selectedMethodIndex === index ? 'selected' : ''}}"
+            bindtap="onMethodTagTap"
+            data-index="{{index}}"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 生成按钮 -->
+  <view class="generate-btn-wrapper">
+    <button class="btn-primary big" bindtap="onGenerateRecipe">生成菜谱</button>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{isLoading}}">
+    <view class="loading-icon"></view>
+    <view class="loading-text">AI正在为您生成菜谱...</view>
+  </view>
+
+  <!-- 最近生成的菜谱 -->
+  <view class="card" wx:if="{{recentRecipes.length > 0}}">
+    <view class="card-title">最近生成</view>
+    <view class="card-content">
+      <view 
+        wx:for="{{recentRecipes}}" 
+        wx:key="index"
+        class="recipe-item"
+        bindtap="viewRecipe"
+        data-recipe="{{item}}"
+      >
+        <view class="recipe-info">
+          <view class="recipe-name">{{item.name}}</view>
+          <view class="recipe-desc">{{item.description}}</view>
+          <view class="recipe-tags">
+            <view class="tag" wx:for="{{item.tags}}" wx:key="tagIndex">{{item}}</view>
+          </view>
+        </view>
+        <view class="recipe-arrow">></view>
+      </view>
+    </view>
+  </view>
+</view> 

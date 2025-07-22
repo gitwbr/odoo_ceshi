@@ -1,0 +1,167 @@
+/* 个人中心页面样式 */
+.page-header {
+  text-align: center;
+  padding: 40rpx 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  margin-bottom: 30rpx;
+}
+
+.page-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.page-subtitle {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+/* API信息样式 */
+.api-info {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+}
+
+.info-text {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 10rpx;
+}
+
+.info-text:last-child {
+  margin-bottom: 0;
+}
+
+/* API状态样式 */
+.api-status {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+}
+
+.status-label {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.status-value {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-left: 10rpx;
+}
+
+.status-value.success {
+  color: #28a745;
+}
+
+.status-value.error {
+  color: #dc3545;
+}
+
+/* 数据管理样式 */
+.data-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.data-item:last-child {
+  border-bottom: none;
+}
+
+.data-info {
+  flex: 1;
+}
+
+.data-label {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 5rpx;
+}
+
+.data-value {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 应用信息样式 */
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 使用说明样式 */
+.instruction-item {
+  margin-bottom: 30rpx;
+}
+
+.instruction-item:last-child {
+  margin-bottom: 0;
+}
+
+.instruction-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.instruction-desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* 关于我们样式 */
+.about-text {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20rpx;
+}
+
+/* 响应式设计 */
+@media (max-width: 750rpx) {
+  .data-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15rpx;
+  }
+  
+  .info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5rpx;
+  }
+} 
